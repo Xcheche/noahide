@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %} 
 {% block content %}
 
 <div class="container">
@@ -10,7 +10,7 @@
                 {% csrf_token %}
                 <fieldset>
                     <legend>Sign Up Form</legend>
-                    {{ form.as_p }}
+                    {{ form|crispy }}
                 </fieldset>
                 <button type="submit" class="btn btn-primary">Login</button>
                 <small>Dont  have an account? <a href="{% url 'signup' %}">SignUp</a></small>

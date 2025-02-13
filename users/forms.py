@@ -1,20 +1,19 @@
 from django import forms
-
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from captcha.fields import CaptchaField
 
+class UserForm(UserCreationForm):
+    captcha = CaptchaField()
+    
+    email = forms.EmailField(required=True)  # Ensure email is required
 
-class UserForm(UserCreationForm):   
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-        widgets = {
-            'password1': forms.PasswordInput(),
-            'password2': forms.PasswordInput()
-        }
-        labels = {
-            'username': 'Username',
-            'email': 'Email',
-            'password1': 'Password1',
-            'password2': 'Confirm Password'
-        }
+    # class Meta:
+    #     model = User
+    #     fields = ['username', 'email', 'password1', 'password2']
+    #     labels = {
+    #         'username': 'Username',
+    #         'email': 'Email',
+    #         'password1': 'Password',  # More user-friendly label
+    #         'password2': 'Confirm Password'
+    #     }

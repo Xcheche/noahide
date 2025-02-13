@@ -37,10 +37,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Other Apps
     'posts',
     'sitepages',
     'users',
+    # Third Party Apps
+    'crispy_forms',
+    'crispy_bootstrap5',  # For Bootstrap 5
+    'crispy_bootstrap4', 
+    'captcha',
 ]
+
+# Crispy forms
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5", "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"  # Set this as the default; you can switch to "bootstrap4" if needed.
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
