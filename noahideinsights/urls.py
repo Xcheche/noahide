@@ -18,11 +18,12 @@ import sitepages.views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import re_path
+from django.urls import re_path, path, include
 
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^$', posts.views.home, name="home"),
     re_path(r'^posts/(?P<post_id>[0-9]+)/$', posts.views.post_details, name="post_detail"),
     re_path(r'^about/', sitepages.views.about, name="about"),
+    path("users/", include("users.urls"), name="users"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
