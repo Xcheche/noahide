@@ -26,6 +26,7 @@ urlpatterns = [
     re_path(r'^posts/(?P<post_id>[0-9]+)/$', posts.views.post_details, name="post_detail"),
     re_path(r'^about/', sitepages.views.about, name="about"),
     path("users/", include("users.urls"), name="users"),
+    path("contact/", include("contact.urls"), name="contact"),
       path('captcha/', include('captcha.urls')),  # Required if using django-simple-captcha
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
