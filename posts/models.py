@@ -1,11 +1,16 @@
 from django.db import models
+from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Post(models.Model):
-    title = models.CharField(max_length=255)
+    author =models.ForeignKey(User, on_delete=models.CASCADE,related_name='posts')
+    title = RichTextField(max_length=255, blank=True) 
     pub_date = models.DateTimeField()
-    image = models.ImageField(upload_to='post_images/', blank=True)
-    body = models.TextField()
+    # image = models.ImageField(upload_to='post_images/', blank=True)
+    image = CloudinaryField("image", folder="blog_images/")
+    body = RichTextField(blank=True)
 
     def __str__(self):
         return self.title

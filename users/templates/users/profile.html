@@ -7,11 +7,11 @@
             alt="User Avatar"
         />
         <div class="media-body">
-            <h2 class="account-heading">{{ user.username|capfirst }}</h2>
-            <p class="text-secondary">
+            <h2 class="welcome">{{ user.username|capfirst }}</h2>
+            <p class="welcome">
                 Email: {{ user.profile.email|default:"Email not provided" }}
             </p>
-            <p class="text-secondary">
+            <p class="welcome">
                 Phone: {{ user.profile.phone|default:"Not provided" }}
             </p>
         </div>

@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container mt-5">
   <!-- Post Title -->
-  <h1 class="text-center fw-bold text-light display-5">{{ post.title }}</h1>
+  <h1 class="text-center fw-bold text-light display-5">{{ post.title|safe }}</h1>
   <h4 class="text-center text-warning">
     <i class="bi bi-clock"></i> {{ post.pub_date_pretty }}
   </h4>
@@ -40,7 +40,7 @@
       font-size: 1.1rem;
     "
   >
-    <p>{{ post.body }}</p>
+    <p>{{ post.body|safe }}</p>
   </div>
 
   <!-- Comments Section -->

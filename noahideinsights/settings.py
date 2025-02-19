@@ -11,7 +11,15 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import dj_database_url # For database configuration
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,10 +28,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(lp_(^pl5!wz_uun5b%*mi0edve_$sp81l11_&*yyl%2=&au!t'
+# Secret key from .env
+SECRET_KEY = os.getenv('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -47,6 +58,9 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',  # For Bootstrap 5
     'crispy_bootstrap4', 
     'captcha',
+      'cloudinary',
+    'cloudinary_storage',
+     'ckeditor',
 ]
 
 # Crispy forms
@@ -91,14 +105,12 @@ WSGI_APPLICATION = 'noahideinsights.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    "default":dj_database_url.config(default=os.getenv("DATABASE_URL"))
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
 
@@ -139,6 +151,46 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 LOGIN_REDIRECT_URL = '/'
 
+
 LOGIN_URL = '/users/login/'
+
+
+
+# Cloudinary Configuration from Environment Variables
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.getenv("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.getenv("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.getenv("CLOUDINARY_API_SECRET"),
+    
+}
+
+cloudinary.config(
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+)
+
+
+
+#Upload path for ckeditor
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 700,
+    }
+}
+
+
+# Settings for local development
+
+try:
+    from .local_settings import *
+except ImportError:
+    print("No local settings found. looks like you are in production.")
