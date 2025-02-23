@@ -16,7 +16,9 @@
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+
     />
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'posts/favicon-16x16.png' %}">
 
     <style>
       /* Custom Styles */
@@ -177,7 +179,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'home' %}">Noahide-Wisdom</a>
+        <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'posts/nohaide.jpeg' %}" alt="Noahide-Wisdom" style="height: 40px; width: auto; cursor: pointer;">
+        </a>
         <button
           class="navbar-toggler"
           type="button"
